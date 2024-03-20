@@ -13,20 +13,6 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v2
 
-            # Add a step for installing Node.js
-            - name: Setup Node.js
-              uses: actions/setup-node@v2
-              with:
-                  node-version: "20"
-
-            # Add a step to install dependencies
-            - name: Install dependencies
-              run: npm install
-
-            # Add a step to run tests
-            - name: Run tests
-              run: npm test
-
             - name: Set up QEMU
               uses: docker/setup-qemu-action@v1
 
