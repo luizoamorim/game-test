@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  characters Character[]
+  inventory Item[]
+}
+
+model Character {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  name        String
+  level       Int
+  health      Int
+  items       Item[]  
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+
+model ItemType {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  items Item[]
+}
+
+model Item {
+  id         Int      @id @default(autoincrement())
+  name       String
+  typeId     Int
+  itemType   ItemType @relation(fields: [typeId], references: [id])  
+  ownerId    Int?
+  owner      User?    @relation(fields: [ownerId], references: [id])
+  characterId Int?
+  character  Character? @relation(fields: [characterId], references: [id])
+  itemPerks  ItemPerks[]
+}
+
+model Perk {
+  id       Int      @id @default(autoincrement())
+  name     String
+  effect   String  
+  itemPerks ItemPerks[]
+}
+
+// Many-to-many relationship between Items and Perks
+model ItemPerks {
+  item   Item   @relation(fields: [itemId], references: [id])
+  itemId Int
+  perk   Perk   @relation(fields: [perkId], references: [id])
+  perkId Int
+
+  @@id([itemId, perkId])
+}
