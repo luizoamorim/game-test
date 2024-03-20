@@ -23,7 +23,9 @@ export interface IItemRepository {
         characterId: number,
     ): Promise<number>;
 
-    discardItem(itemId: number): Promise<void>;
+    characterDiscardItem(itemId: number): Promise<Item>;
+
+    discard(itemsId: number): Promise<Item>;
 
     delete(itemId: number): Promise<boolean>;
 

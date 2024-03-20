@@ -20,4 +20,18 @@ export class ItemController {
             data: null,
         };
     }
+
+    async discardMany(
+        discardItemsBody: DiscardItemsBody,
+    ): Promise<Result | null> {
+        const result = await this.itemService.discardMany(discardItemsBody);
+        if (!result) {
+            return null;
+        }
+        return {
+            httpStatusCode: 200,
+            message: "Items discarded successfully",
+            data: null,
+        };
+    }
 }

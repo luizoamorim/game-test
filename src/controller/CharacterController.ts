@@ -1,4 +1,5 @@
 import Result from "../../types/Result";
+import { CharacterDiscardItemsBody } from "../entity/CharacterDiscardItemsBody";
 import { EquipItemBody } from "../entity/EquipItemBody";
 import ICharacterRepository from "../repository/ICharacterRepository";
 import { IItemRepository } from "../repository/IItemRepository";
@@ -25,6 +26,22 @@ export class CharacterController {
         return {
             httpStatusCode: 200,
             message: "Caracter equiped successfully",
+            data: null,
+        };
+    }
+
+    async discardItems(
+        characterDiscardItems: CharacterDiscardItemsBody,
+    ): Promise<Result | null> {
+        const result = await this.characterService.discardItems(
+            characterDiscardItems,
+        );
+        if (!result) {
+            return null;
+        }
+        return {
+            httpStatusCode: 200,
+            message: "Items discarded successfully",
             data: null,
         };
     }

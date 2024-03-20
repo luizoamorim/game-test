@@ -12,3 +12,5 @@ dist/
 
 # Editor directories and files
 .vscode/
+
+tests/.DS_Store

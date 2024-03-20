@@ -82,4 +82,67 @@ export class ItemService {
 
         return true;
     }
+
+    /**
+     * @param discardItemsBody
+     * @returns true if the items were discarded of the user inventory
+     * @trhows Error if the some of the requirements are not met
+     * @requirements
+     * 1. The user must exists
+     * 2. The item must belong to the user
+     * 3. The item must not belong to any character
+     * 4. The item must be discarded
+     */
+    async discardMany(discardItemsBody: any): Promise<boolean> {
+        // I need to check if the user exists in the database
+        // and if the item belongs to the user
+        const userRepository = new UserRepositoryPg();
+        const user = await userRepository.findById(discardItemsBody.userId);
+
+        if (!user) {
+            logger.error("User %d does not exist", discardItemsBody.userId);
+            throw new Error("User does not exist");
+        }
+
+        console.log("No server: ", discardItemsBody);
+
+        const ownedItems = await this.itemRepository.findManyByUserId(
+            discardItemsBody.userId,
+            discardItemsBody.itemsId,
+        );
+
+        console.log("ownedItems: ", ownedItems);
+
+        if (ownedItems !== discardItemsBody.itemsId.length) {
+            logger.error(
+                "Some items do not belong to the user %d",
+                discardItemsBody.userId,
+            );
+            throw new Error("Some items do not belong to the user");
+        }
+
+        const items = await this.itemRepository.findByIds(
+            discardItemsBody.itemsId,
+        );
+
+        const itemsNotBelongsToCharacter = items.filter(
+            (item) => item.characterId === null,
+        );
+
+        if (
+            itemsNotBelongsToCharacter.length !==
+            discardItemsBody.itemsId.length
+        ) {
+            logger.error("Some items belong to a character");
+            throw new Error("Some items belong to a character");
+        }
+
+        await Promise.all(
+            discardItemsBody.itemsId.map((itemId: any) =>
+                this.itemRepository.discard(itemId),
+            ),
+        );
+
+        return true;
+    }
 }

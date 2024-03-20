@@ -1,6 +1,5 @@
-require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
+require("dotenv").config({ path: `../.env.${process.env.NODE_ENV}` });
 import Fastify from "fastify";
-import helmet from "@fastify/helmet";
 import cors from "@fastify/cors";
 import healthAPI from "./routes/health";
 import itemAPI from "./routes/item";
@@ -14,8 +13,7 @@ function createServer() {
     fastify.register(characterAPI, { prefix: "/api/character" });
 
     fastify.register(cors, {
-        // Define your CORS configuration options here
-        origin: "*", // Allow only this domain to make requests
+        origin: "*",
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type", "Authorization"],

@@ -12,7 +12,15 @@ export class ItemRepositoryPg implements IItemRepository {
     }
 
     async save(item: Item): Promise<Item> {
-        throw new Error("Method not implemented.");
+        try {
+            const itemSaved = await this.prisma.item.create({
+                data: item as any,
+            });
+            return itemSaved as any;
+        } catch (error) {
+            logger.error("Error saving item on the repository", error);
+            throw new Error("Error saving item on the repository");
+        }
     }
 
     async saveMany(items: Item[]): Promise<number> {
@@ -154,8 +162,40 @@ export class ItemRepositoryPg implements IItemRepository {
         }
     }
 
-    async discardItem(itemId: number): Promise<void> {
-        throw new Error("Method not implemented.");
+    async characterDiscardItem(itemId: number): Promise<Item> {
+        console.log("itemId no REPO: ", itemId);
+        try {
+            const itemUpdated = await this.prisma.item.update({
+                where: {
+                    id: itemId,
+                },
+                data: {
+                    characterId: null,
+                },
+            });
+            console.log("itemUpdated no REPO: ", itemUpdated);
+            return itemUpdated as any;
+        } catch (error) {
+            logger.error("Error discarding item on the repository", error);
+            throw new Error("Error discarding item on the repository");
+        }
+    }
+
+    async discard(itemId: number): Promise<Item> {
+        try {
+            const itemUpdated = await this.prisma.item.update({
+                where: {
+                    id: itemId,
+                },
+                data: {
+                    ownerId: null,
+                },
+            });
+            return itemUpdated as any;
+        } catch (error) {
+            logger.error("Error discarding items on the repository", error);
+            throw new Error("Error discarding items on the repository");
+        }
     }
 
     async delete(itemId: number): Promise<boolean> {
