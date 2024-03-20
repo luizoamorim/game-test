@@ -4,12 +4,14 @@ import helmet from "@fastify/helmet";
 import cors from "@fastify/cors";
 import healthAPI from "./routes/health";
 import itemAPI from "./routes/item";
+import characterAPI from "./routes/character";
 
 function createServer() {
     const fastify = Fastify({ logger: true });
 
     fastify.register(healthAPI, { prefix: "/api" });
-    fastify.register(itemAPI, { prefix: "/api" });
+    fastify.register(itemAPI, { prefix: "/api/item" });
+    fastify.register(characterAPI, { prefix: "/api/character" });
 
     fastify.register(cors, {
         // Define your CORS configuration options here

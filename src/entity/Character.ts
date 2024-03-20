@@ -26,7 +26,8 @@ export default class Character {
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => Item)
-    items: Item[];
+    @IsOptional()
+    items?: Item[];
 
     @ValidateNested()
     @Type(() => User)

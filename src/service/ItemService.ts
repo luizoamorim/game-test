@@ -10,6 +10,17 @@ export class ItemService {
         this.itemRepository = itemRepository;
     }
 
+    /**
+     *
+     * @param transferItemBody
+     * @returns boolean
+     * @requirements
+     * 1. The source user must exists
+     * 2. The target user must exists
+     * 3. The items must belong to the source user
+     * 4. The items must not belong to a character
+     * 5. The items must be transferred to the target user
+     */
     async transferItems(transferItemBody: TransferItemBody): Promise<boolean> {
         // I need to check if the users exists in the database
         // and if the items belong to the user
@@ -55,10 +66,17 @@ export class ItemService {
             transferItemBody.itemsId,
         );
 
-        // I need to check if the items not belongs to a character
         const itemsNotBelongsToCharacter = items.filter(
             (item) => item.characterId === null,
         );
+
+        if (
+            itemsNotBelongsToCharacter.length !==
+            transferItemBody.itemsId.length
+        ) {
+            logger.error("Some items belong to a character");
+            throw new Error("Some items belong to a character");
+        }
 
         await this.itemRepository.transferItems(transferItemBody);
 

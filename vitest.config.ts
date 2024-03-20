@@ -5,5 +5,10 @@ export default defineConfig({
         environment: "node",
         globals: true,
         setupFiles: ["./tests/setup.ts"], // If you have any global setup file
+        poolOptions: {
+            forks: {
+                singleFork: true,
+            },
+        },
     },
 });

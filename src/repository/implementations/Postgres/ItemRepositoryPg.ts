@@ -15,7 +15,7 @@ export class ItemRepositoryPg implements IItemRepository {
         throw new Error("Method not implemented.");
     }
 
-    async saveMany(items: Item[]): Promise<Item[]> {
+    async saveMany(items: Item[]): Promise<number> {
         const itemsSaved = await this.prisma.item.createMany({
             data: items as any[],
             skipDuplicates: true,
@@ -106,6 +106,51 @@ export class ItemRepositoryPg implements IItemRepository {
         } catch (error) {
             logger.error("Error transferring items on the repository", error);
             throw new Error("Error transferring items on the repository");
+        }
+    }
+
+    async updateCharacterId(
+        itemId: number,
+        characterId: number,
+    ): Promise<Item> {
+        try {
+            const item = await this.prisma.item.update({
+                where: {
+                    id: itemId,
+                },
+                data: {
+                    characterId: characterId,
+                },
+            });
+            return item as any;
+        } catch (error) {
+            logger.error("Error updating item on the repository", error);
+            throw new Error("Error updating item on the repository");
+        }
+    }
+
+    async updateManyByCharacterId(
+        itemsId: number[],
+        characterId: number,
+    ): Promise<number> {
+        console.log("itemsId no REPO: ", itemsId);
+        console.log("characterId no REPO: ", characterId);
+        try {
+            const result = await this.prisma.item.updateMany({
+                where: {
+                    id: {
+                        in: itemsId,
+                    },
+                },
+                data: {
+                    characterId: parseInt(characterId.toString()),
+                },
+            });
+            return result.count;
+        } catch (error) {
+            console.log("error no REPO: ", error);
+            logger.error("Error updating items on the repository", error);
+            throw new Error("Error updating items on the repository");
         }
     }
 
