@@ -1,4 +1,5 @@
 #!/bin/bash
+EXPORT NODE_ENV=test
 
 # Exit script if any command fails
 set -e
