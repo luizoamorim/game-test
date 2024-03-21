@@ -184,5 +184,7 @@ describe("E2E: Discard User's Inventory Items", () => {
         item = await itemRepository.findById(itemsId[0]);
         expect(item).toBeDefined();
         expect(item!.ownerId).toBeNull();
+
+        await itemRepository.delete(itemsId[0]);
     });
 });

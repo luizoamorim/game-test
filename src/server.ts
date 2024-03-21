@@ -1,4 +1,5 @@
-require("dotenv").config({ path: `../.env.${process.env.NODE_ENV}` });
+import dotenv from "dotenv";
+dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import healthAPI from "./routes/health";
@@ -26,7 +27,7 @@ function createServer() {
 
 // Check if the file is being imported or run directly
 if (require.main === module) {
-    const PORT = parseInt(process.env.PORT || "3333", 10);
+    const PORT = parseInt(process.env.PORT || "5001", 10);
     const fastify = createServer();
 
     // Run the server!

@@ -1,6 +1,7 @@
-import Result from "../../types/Result";
+import Result from "../types/Result";
 import { IItemRepository } from "../repository/IItemRepository";
 import { ItemService } from "../service/ItemService";
+import { DiscardItemsBody } from "../entity/DiscardItemsBody";
 
 export class ItemController {
     private itemService: ItemService;

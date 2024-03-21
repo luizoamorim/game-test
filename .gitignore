@@ -4,7 +4,8 @@ npm-debug.log
 yarn-error.log
 
 # Keep environment variables out of version control
-.env*
+.env
+.env.test
 
 # TypeScript
 dist/

@@ -1,4 +1,4 @@
-import Result from "../../types/Result";
+import Result from "../types/Result";
 import { CharacterDiscardItemsBody } from "../entity/CharacterDiscardItemsBody";
 import { EquipItemBody } from "../entity/EquipItemBody";
 import ICharacterRepository from "../repository/ICharacterRepository";

@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "description": "",
     "main": "index.js",
-    "type": "module",
+    "type": "commonjs",
     "scripts": {
         "build": "tsc && npx prisma migrate deploy",
         "start": "node dist/server.js",
@@ -11,8 +11,9 @@
         "dev": "NODE_ENV=dev ts-node-dev src/server.ts",
         "prod": "NODE_ENV=prod node dist/server.ts",
         "test": "NODE_ENV=test ./tests/run.sh",
-        "prisma:generate": "prisma generate",
-        "prisma:migrate:local": "npx prisma migrate dev -e .env.local"
+        "prisma:generate:test": "dotenv -e .env.test -- npx prisma generate",
+        "prisma:migrate:test": "dotenv -e .env.test -- npx prisma migrate deploy",
+        "setup:test:db": "sh ./prisma_migrate_tests.sh"
     },
     "keywords": [],
     "author": "",
@@ -26,8 +27,10 @@
         "class-transformer": "^0.5.1",
         "class-validator": "^0.14.1",
         "dotenv": "^16.4.5",
+        "dotenv-cli": "^7.4.1",
         "fastify": "^4.26.2",
         "pino": "^8.19.0",
+        "pino-pretty": "^11.0.0",
         "prisma": "^5.11.0",
         "reflect-metadata": "^0.2.1",
         "ts-jest": "^29.1.2",
