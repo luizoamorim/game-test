@@ -10,7 +10,7 @@
         "local": "NODE_ENV=local ts-node-dev src/server.ts",
         "dev": "NODE_ENV=dev ts-node-dev src/server.ts",
         "prod": "NODE_ENV=prod node dist/server.ts",
-        "test": "NODE_ENV=test ./tests/run.sh",
+        "test": "dotenv -e .env.test ./tests/run.sh",
         "prisma:generate:test": "dotenv -e .env.test -- npx prisma generate",
         "prisma:migrate:test": "dotenv -e .env.test -- npx prisma migrate deploy",
         "setup:test:db": "sh ./prisma_migrate_tests.sh"

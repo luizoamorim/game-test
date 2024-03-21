@@ -4,7 +4,7 @@ services:
     pg1-game7:
         image: postgres
         environment:
-            POSTGRES_PASSWORD: "p0stgr35!"
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
         ports:
             - "5433:5432"
         volumes:
@@ -15,8 +15,8 @@ services:
     pgadmin1-game7:
         image: dpage/pgadmin4
         environment:
-            PGADMIN_DEFAULT_EMAIL: "user@domain.com"
-            PGADMIN_DEFAULT_PASSWORD: "5up3r53cret!"
+            - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+            - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
         ports:
             - "8082:80"
         depends_on:

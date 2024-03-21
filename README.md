@@ -18,9 +18,33 @@ I'm using pino for the logs.
 
 I've used prisma ORM that make easier and safe to communicate with the database
 
+# PREPARE 
+Run:
+```
+npm install
+```
+
+## Env
+Create the .env and .env.test files
+
+### .env
+This one will be used by the docker
+Add the variables:
+
+```
+POSTGRES_PASSWORD=
+PGADMIN_DEFAULT_EMAIL=
+PGADMIN_DEFAULT_PASSWORD=
+DATABASE_URL=
+```
+
+### .env.test
+This one will be used by the tests on top of the docker running
+Here you can use localhost:5433 to access the database
+
 # Docker
 
-execute:
+With the .env files read you can execute:
 
 ```
 docker-compose up --build
