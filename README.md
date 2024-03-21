@@ -4,11 +4,11 @@ GOAL: Create a REST or GraphQL API for managing the weapon inventory system.
 
 # Architecture
 
-Routes: The endpoints opened for http requests
-Entity: All the entities that we should use and validate in the requests and in the business logic.
-Controller: Receive requests and prepare responses
-Service: Take care of the Business Logic
-Repository: Access to the database using prisma ORM
+-   Routes: The endpoints opened for http requests
+-   Entity: All the entities that we should use and validate in the requests and in the business logic.
+-   Controller: Receive requests and prepare responses
+-   Service: Take care of the Business Logic
+-   Repository: Access to the database using prisma ORM
 
 # Logs
 
