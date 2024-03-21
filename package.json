@@ -1,0 +1,52 @@
+{
+    "name": "game7",
+    "version": "0.1.0",
+    "description": "",
+    "main": "index.js",
+    "type": "commonjs",
+    "scripts": {
+        "build": "tsc && npx prisma migrate deploy",
+        "start": "node dist/server.js",
+        "local": "NODE_ENV=local ts-node-dev src/server.ts",
+        "dev": "NODE_ENV=dev ts-node-dev src/server.ts",
+        "prod": "NODE_ENV=prod node dist/server.ts",
+        "test": "NODE_ENV=test ./tests/run.sh",
+        "prisma:generate:test": "dotenv -e .env.test -- npx prisma generate",
+        "prisma:migrate:test": "dotenv -e .env.test -- npx prisma migrate deploy",
+        "setup:test:db": "sh ./prisma_migrate_tests.sh"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@fastify/cors": "^9.0.1",
+        "@fastify/helmet": "^11.1.1",
+        "@fastify/swagger": "^8.14.0",
+        "@prisma/client": "^5.11.0",
+        "@types/jest": "^29.5.12",
+        "class-transformer": "^0.5.1",
+        "class-validator": "^0.14.1",
+        "dotenv": "^16.4.5",
+        "dotenv-cli": "^7.4.1",
+        "fastify": "^4.26.2",
+        "pino": "^8.19.0",
+        "pino-pretty": "^11.0.0",
+        "prisma": "^5.11.0",
+        "reflect-metadata": "^0.2.1",
+        "ts-jest": "^29.1.2",
+        "typescript": "^5.4.2"
+    },
+    "devDependencies": {
+        "@swc/core": "^1.4.8",
+        "@swc/jest": "^0.2.36",
+        "@typescript-eslint/eslint-plugin": "^7.2.0",
+        "@typescript-eslint/parser": "^7.2.0",
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.1.3",
+        "prettier": "3.2.5",
+        "ts-node": "^10.9.2",
+        "ts-node-dev": "^2.0.0",
+        "vitest": "^1.4.0"
+    }
+}

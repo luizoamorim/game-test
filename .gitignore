@@ -1,0 +1,17 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Keep environment variables out of version control
+.env
+.env.test
+
+# TypeScript
+dist/
+*.tsbuildinfo
+
+# Editor directories and files
+.vscode/
+
+tests/.DS_Store
